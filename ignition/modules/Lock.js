@@ -1,48 +1,15 @@
 const hre = require("hardhat");
 
 async function main() {
-  
-  const Paypal = await hre.ethers.getContractFactory("Paypal");
-  const paypal = await Paypal.deploy();
+    const Paypal = await hre.ethers.getContractFactory("Paypal");
+    const paypal = await Paypal.deploy(); // ✅ Assign the deployed contract
 
-  await paypal.deployed();
+    await paypal.waitForDeployment(); // ✅ Correct method for ethers v6
 
-  console.log("Paypal deployed to:", paypal.address);
+    console.log("Paypal deployed to:", await paypal.getAddress()); // ✅ Correct way to get contract address
 }
 
 main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
+    console.error(error);
+    process.exitCode = 1;
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const { buildModule } = require("@nomicfoundation/hardhat-ignition/modules");
-
-// const JAN_1ST_2030 = 1893456000;
-// const ONE_GWEI = 1_000_000_000n;
-
-// module.exports = buildModule("PaypalModule", (m) => {
-//   const unpaypalTime = m.getParameter("unpaypalTime", JAN_1ST_2030);
-//   const paypaledAmount = m.getParameter("paypaledAmount", ONE_GWEI);
-
-//   const paypal = m.contract("Paypal", [unpaypalTime], {
-//     value: paypaledAmount,
-//   });
-
-//   return { paypal };
-// });
