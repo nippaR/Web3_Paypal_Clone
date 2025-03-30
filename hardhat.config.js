@@ -13,4 +13,8 @@ module.exports = {
   etherscan: {
     apiKey: process.env.API_KEY,
   },
+  sourcify:{
+    enabled: true,
+    apiKey: process.env.SOURCIFY_API_KEY,
+  }
 };
